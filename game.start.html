@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: url("./images/start_background.png");
+            width: 100vw;
+            height: 100vh;
+        }
+
+        img {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #progressBar {
+            border: 4px solid #000;
+            border-radius: 10px;
+            position: relative;
+            width: 35%;
+            height: 10%;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 6px;
+        }
+
+        #bar {
+            border: 4px solid #000;
+            border-radius: 10px;
+            position: absolute;
+            width: 97%;
+            height: 80%;
+            background: linear-gradient(90deg, rgba(253, 187, 45, 1) 0%, rgba(34, 193, 195, 1)100%);
+            animation: animation 2s 1s linear 1;
+        }
+
+
+        @keyframes animation {
+            0% {
+                width: 0%;
+            }
+
+            50% {
+                width: 50%;
+            }
+
+            100% {
+                width: 97%;
+            }
+        }
+
+        #arrow {
+            display: none;
+            top: 50%;
+            left: 85%;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+
+<body>
+    <img src="./images/title.png" alt="">
+    <div id="progressBar">
+        <div id="bar">
+            <a href="./game1.html">
+                <img id="arrow" src="./images/arrow.png" alt="">
+            </a>
+        </div>
+    </div>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        // 動畫完成後顯示 #arrow
+        // animationend：動畫效果結束時，觸發的事件
+        $('#bar').on('animationend', function () {
+            $('#arrow').fadeIn(800);
+        });
+    </script>
+</body>
+
+</html>

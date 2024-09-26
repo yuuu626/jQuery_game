@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./game5.css">
+</head>
+
+<body>
+    <img class="cat" id="cat1" src="./images/game5/cat1.png" alt="">
+    <img class="cat" id="cat2" src="./images/game5/cat2.png" alt="">
+    <img class="cat" id="cat3" src="./images/game5/cat3.png" alt="">
+    <img class="cat" id="cat4" src="./images/game5/cat4.png" alt="">
+    <img id="hand" src="./images/game5/hand.png" alt="">
+    <a href="./game_level.html">
+        <img id="menu" src="./images/menu.png" alt="">
+    </a>
+    <!-- progress 的背景顏色不能透過jq更改? -->
+    <div id="progress_bar">
+        <div id="div-bar" value="50" max="100"></div>
+    </div>
+
+    <div id="popup" class="popup">
+        <img src="./images/play_choose_popup.png" class="popup-content">
+        <div>
+            <div class="introduce">拍貓屁屁 ~</div>
+            <span>提示:</span>
+            <img id="space" src="./images/game5/space.png" alt="">
+        </div>
+        <button>遊戲開始</button>
+        <a href="./game4.html">
+            <div id="pre"></div>
+        </a>
+    </div>
+    <div id="win" class="popup">
+        <img src="./images/back_popup.png" class="popup-content">
+        <div class="introduce">恭喜通過!</div>
+        <a href="./game4.html">
+            <button></button></a>
+    </div>
+    </div>
+    <div id="fail" class="popup">
+        <img src="./images/again_popup.png" class="popup-content">
+        <div class="introduce">失敗囉!QQ</div>
+        <a href="./game5.html"><button></button></a>
+    </div>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function () {
+            // 啟動計時器，每秒減少進度條寬度
+            var timer
+            var progressWidth = 60; // 初始進度條寬度為60%
+            $('button').click(function () {
+                $('#popup').css('display', 'none')
+                timer = setInterval(decreaseProgress, 250)
+            })
+
+
+            // 按下空白鍵增加進度
+            $(document).on('keydown', function (event) {
+                if (event.keyCode === 32) { // 32是空白鍵的鍵碼
+                    increaseProgress();
+                }
+            });
+
+            // 減少進度條寬度函數
+            function decreaseProgress() {
+                if (progressWidth > 0) {
+                    progressWidth -= 10; // 每秒減少10%
+                    $('#div-bar ').css('width', progressWidth + '%');
+                }
+
+                if (progressWidth >= 100 || progressWidth <= 0) {
+                    clearInterval(timer); // 停止計時器
+                }
+                setProgressBarColor();
+            }
+
+            // 增加進度條寬度函數
+            function increaseProgress() {
+                if (progressWidth < 100) {
+                    progressWidth += 10; // 每次增加10%
+                    $('#div-bar ').css('width', progressWidth + '%');
+                }
+                if (progressWidth >= 100 || progressWidth <= 0) {
+                    clearInterval(timer); // 停止計時器
+                }
+            }
+
+
+
+            function setProgressBarColor() {
+                if (progressWidth <= 0) {
+                    setTimeout(function () {
+                        $('#fail').css('display', 'block');
+                        $('.introduce').css('top', '45%');
+                    }, 1000)
+                } else if (progressWidth <= 20) {
+                    $('#cat1').css('display', 'none');
+                    $('#cat2').css('display', 'none');
+                    $('#cat3').css('display', 'block');
+                    $('#cat4').css('display', 'none');
+                    $('#div-bar ').css('background', 'tomato');
+                } else if (progressWidth > 20 && progressWidth < 70) {
+                    $('#cat1').css('display', 'block');
+                    $('#cat2').css('display', 'none');
+                    $('#cat3').css('display', 'none');
+                    $('#cat4').css('display', 'none');
+                    $('#div-bar ').css('background', '#ffc814');
+                } else if (progressWidth >= 80) {
+                    $('#cat1').css('display', 'none');
+                    $('#cat2').css('display', 'none');
+                    $('#cat3').css('display', 'none');
+                    $('#cat4').css('display', 'block');
+                    $('#hand').css('display', 'none');
+                    $('#div-bar ').css('background', '#6aff14');
+                    setTimeout(function () {
+                        $('.introduce').css('top', '45%')
+                        $('#win').css('display', 'block');
+                    }, 1000)
+                } else {
+                    $('#cat1').css('display', 'none');
+                    $('#cat2').css('display', 'block');
+                    $('#cat3').css('display', 'none');
+                    $('#cat4').css('display', 'none');
+                    $('#div-bar ').css('background', '#6aff14');
+                }
+            }
+
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,240 @@
+body {
+    background: url("./images/game5/background.png");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 75vh;
+}
+
+.cat {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+}
+
+#cat2 {
+    display: block;
+    position: absolute;
+    top: 35%;
+    display: none;
+}
+
+#cat3 {
+    display: none;
+}
+
+#cat4 {
+    position: absolute;
+    top: 30%;
+    display: none;
+}
+
+#progress_bar {
+    border: 3px solid #333;
+    padding: 5px;
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -90%);
+    width: 80%;
+    /* height: 44px; */
+    border-radius: 50px;
+}
+
+#div-bar {
+    background: #6aff14;
+    width: 80%;
+    height: 40px;
+    border-radius: 20px;
+    /* 圓角 */
+    overflow: hidden;
+    /* 超過範圍就裁切 */
+    height: 40px;
+}
+
+#popup {
+    /* display: none; */
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9)
+}
+
+.popup-content {
+    /* background-color: #fefefe; */
+    /* border: 1px solid #888; */
+    border-radius: 25px;
+    position: relative;
+    top: 45%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+}
+
+
+.introduce {
+    font-size: 50px;
+    font-weight: bolder;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%);
+    z-index: 10;
+    color: #686867;
+}
+
+span {
+    font-size: 30px;
+    font-weight: bolder;
+    color: #686867;
+    position: absolute;
+    left: 44%;
+    top: 50%;
+    transform: translateX(-44%);
+}
+
+#space {
+    position: absolute;
+    left: 52%;
+    top: 50%;
+    transform: translateX(-52%);
+    width: 200px;
+}
+
+#popup {
+    /* display: none; */
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9)
+}
+
+.popup-content {
+    /* background-color: #fefefe; */
+    /* border: 1px solid #888; */
+    border-radius: 25px;
+    position: relative;
+    top: 45%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+}
+
+
+.introduce {
+    font-size: 50px;
+    font-weight: bolder;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%);
+    z-index: 10;
+    color: #686867;
+}
+
+button {
+    width: 265px;
+    height: 118px;
+    border-radius: 50px;
+    position: absolute;
+    left: 50%;
+    bottom: 30%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    /* 隱藏起來 */
+    opacity: 0;
+}
+
+#pre {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    position: absolute;
+    left: 36.5%;
+    top: 58.5%;
+}
+
+#next {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    position: absolute;
+    left: 58.5%;
+    top: 58.5%;
+}
+
+#win {
+    display: none;
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9)
+}
+
+
+#fail {
+    display: none;
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+
+}
+
+#menu {
+    cursor: pointer;
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    z-index: 5;
+}
+
+#back {
+    width: 265px;
+    height: 118px;
+    border-radius: 50px;
+    position: absolute;
+    left: 50%;
+    bottom: 30%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    /* 隱藏起來 */
+    opacity: 0;
+}
+
+#hand {
+    position: absolute;
+    top: 32%;
+    left: 60%;
+    transform: translateX(-60%);
+    animation: pat 0.3s linear infinite;
+}
+
+@keyframes pat {
+    0% {
+        top: 30%;
+    }
+
+    50% {
+        top: 32%;
+    }
+
+    100% {
+        top: 30%;
+    }
+}

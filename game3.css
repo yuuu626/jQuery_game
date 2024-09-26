@@ -1,0 +1,224 @@
+body {
+    background: rgb(159, 228, 240);
+    overflow: hidden;
+}
+
+/* 魚 */
+.fish{
+    width: 150px;
+    position: absolute;
+    cursor: grab;
+    z-index: 2;
+    /* 允許滑鼠拖曳 */
+    -webkit-user-drag:auto;
+    /* 關掉滑鼠反白功能 */
+    -webkit-user-select: none;
+    animation: swim 3s linear infinite ;
+
+}
+
+@keyframes swim{
+ from{
+    transform: translate(0%,0%) ;
+ }
+ 10%{
+    transform: translate(-30%,5%)
+ }
+ 25%{
+    transform:  translate(-20%,15%);
+ }
+ 50%{
+    transform:  translate(-10%,20%);
+ }
+ 80%{
+    transform: translate(10%,15%)
+ }
+ to{
+    transform: translate(0%,0%);
+ }
+}
+
+@keyframes swim2{
+    from{
+       transform: scaleX(1) ;
+    }
+    to{
+       transform: scaleX(-1);
+    }
+   }
+
+
+.fish:hover{
+    cursor: pointer;
+}
+#fish1{
+    top: 50%;
+    left: 50%;
+}
+#fish2{
+    top: 40%;
+    left: 40%;
+}
+#fish3{
+    top: 30%;
+    left: 55%;
+    /* 水平翻轉 */
+    transform:scaleX(-1);
+}
+#fish4{
+    top: 45%;
+    left: 60%;
+}
+#fish5{
+    top: 55%;
+    left: 43%;
+}
+#fish6{
+    top: 50%;
+    left:35%;
+    transform:scaleX(-1);
+}
+#fish7{
+    top: 55%;
+    left: 60%;
+    transform:scaleX(-1);
+}
+#fish8{
+    top: 65%;
+    left: 52%;
+    transform:scaleX(-1);
+}
+
+
+/* 貓手 */
+.hand{
+    width: 180px;
+    position: absolute;
+    transition: 1s;
+}
+
+#hand1{
+    top: 8%;
+    left: -18%;
+    transform: rotate(90deg);
+}
+#hand2{
+    bottom: -50%;
+    left:-15%;
+    transform: rotate(75deg);
+}
+
+
+#hand3{
+    bottom: -60%;
+    left:35%;
+}
+
+#hand4{
+    bottom: -55%;
+    left:60%;
+}
+#hand5{
+    bottom: -50%;
+    right:-15%;
+    transform: rotate(-75deg);
+}
+#hand6{
+    top: 8%;
+    right:-18%;
+    transform: rotate(270deg);
+}
+
+#hand7{
+    top: -55%;
+    right:30%;
+    transform: rotate(195deg);
+}
+#hand8{
+    top: -55%;
+    left:30%;
+    transform: rotate(165deg);
+}
+
+
+/* 通關視窗 */
+#popup {
+    /* display: none; */
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9)
+}
+
+.popup-content {
+    /* background-color: #fefefe; */
+    /* border: 1px solid #888; */
+    border-radius: 25px;
+    position: relative;
+    top: 45%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+}
+
+
+.introduce {
+    font-size: 50px;
+    font-weight: bolder;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translateX(-50%);
+    z-index: 10;
+    color: #686867;
+}
+
+button {
+    width: 280px;
+    height: 118px;
+    border-radius: 50px;
+    position: absolute;
+    left: 50%;
+    bottom: 30%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    /* 隱藏起來 */
+    opacity: 0;
+}
+#pre{
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    position: absolute;
+    left: 36.5%;
+    top: 58.5%;
+}
+#next{
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    position: absolute;
+    left: 58.5%;
+    top: 58.5%;
+}
+#win {
+    display: none;
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9)
+}
+
+#menu{
+    cursor: pointer;
+    position: absolute;
+    top: 1%;
+    right: 1%;
+}

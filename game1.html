@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Follow</title>
+    <link rel="stylesheet" href="./game1.css">
+</head>
+
+<body>
+    <div id="background"> </div>
+    <div id="light"></div>
+    <div><img class="cat" id="cat1" src="./images/game1/cat1.png" onclick="displayImage('./images/game1/stars.png', this)"></div>
+    <div><img class="cat" id="cat2" src="./images/game1/cat2.png" onclick="displayImage('./images/game1/stars.png', this)"></div>
+    <div><img class="cat" id="cat3" src="./images/game1/cat3.png" onclick="displayImage('./images/game1/stars.png', this)"></div>
+    <div><img class="cat" id="cat4" src="./images/game1/cat4.png" onclick="displayImage('./images/game1/stars.png', this)"></div>
+    <div><img class="cat" id="cat5" src="./images/game1/cat5.png" onclick="displayImage('./images/game1/stars.png', this)"></div>
+    <a href="./game_level.html">
+        <img id="menu" src="./images/menu.png" alt="">
+    </a>
+    <!-- 開始視窗 -->
+    <div id="popup" class="popup">
+        <img src="./images/play_popup1.png" class="popup-content">
+        <div class="introduce">尋找貓咪遊戲</div>
+        <button>遊戲開始</button>
+    </div>
+    <!-- 通關視窗 -->
+    <div id="win" class="popup">
+        <img src="./images/next_popup1.png" class="popup-content">
+        <div class="introduce">恭喜通過!</div>
+        <a href="./game2.html">
+            <button>下一關</button>
+        </a>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // 處理滑鼠移動的函數
+            $(document).mousemove(function (event) {
+                // 從事件對象中獲取 clientX 和 clientY
+                var clientX = event.clientX;
+                var clientY = event.clientY;
+
+                // 更新光源元素的背景漸變效果
+                // 放射漸層 background:radial-gradient(方式 尺寸 at 位置, 顏色1 位置, 顏色2 位置);
+                $('#light').css('background',
+                    'radial-gradient(circle at ' + clientX + 'px ' + clientY + 'px, #00000000 10px, #000000ff 100px)');
+            });
+
+            // 貓貓圖片被點擊到就變亮並淡出
+            $('.cat').each(function () {
+                $(this).click(function () {
+                    $(this).css('filter', 'brightness(120%)')
+                    $(this).fadeOut(1500)
+                })
+            })
+
+
+            // 遊戲開始紐點擊後視窗消失
+            $('button').click(function () {
+                $('#popup').css('display', 'none')
+            })
+
+        })
+
+
+
+
+        // 點擊貓貓後，點擊物的固定距離出現同張圖片
+        function displayImage(imageSrc, clickedImage) {
+            // 點擊後(寫在html)，圖片出現
+            $('#display').attr('src', imageSrc);
+            // getBoundingClientRect() 元素相對視窗的座標
+            var rect = clickedImage.getBoundingClientRect();
+            setTimeout(function () {
+                $('#display').fadeIn(2000).css({
+                    top: (rect.top + 50) + 'px',
+                    left: (rect.right - 140) + 'px'
+                });
+            }, 500)
+        }
+
+
+
+        // 當點擊數達到5時，代表每隻貓都被找到，跳出通過視窗
+        var count = 0
+        $('.cat').click(function () {
+            count++
+            if (count === 5) {
+                $('#win').fadeIn(800) // 通過視窗淡入
+            }
+        })
+
+
+
+
+    </script>
+</body>
+
+</html>

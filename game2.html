@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./game2.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <img class="hand" id="hand1" src="./images/game2/hand.png" alt="">
+    <img class="hand" id="hand2" src="./images/game2/hand.png" alt="">
+    <img class="hand" id="hand3" src="./images/game2/hand.png" alt="">
+    <img class="hand" id="hand4" src="./images/game2/hand.png" alt="">
+    <div id="myballoon">
+        <div id="balloon">
+            <img id="balloon1" class="balloon" src="./images/game2/balloon.png" alt="">
+            <div class="ball"></div>
+        </div>
+        <img id="balloons" class="balloon" src="./images/game2/balloons.png" alt="">
+    </div>
+    <a href="./game_level.html">
+        <img id="menu" src="./images/menu.png" alt="">
+    </a>
+    <div id="popup" class="popup">
+        <img src="./images/play_choose_popup.png" class="popup-content">
+        <div class="introduce">避開貓手~</div>
+        <!-- 開始視窗 -->
+        <button>遊戲開始</button>
+        <a href="./game1.html">
+            <div id="pre"></div>
+        </a>
+        <a href="./game3.html">
+            <div id="next"></div>
+        </a>
+    </div>
+    <div id="win" class="popup">
+        <img src="./images/pre_next_popup.png" class="popup-content">
+        <!-- 通過視窗 -->
+        <div class="introduce">恭喜通過!</div>
+        <a href="./game1.html">
+            <div id="pre"></div>
+        </a>
+        <a href="./game3.html">
+            <div id="next"></div>
+        </a>
+    </div>
+    <div id="fail" class="popup">
+        <img src="./images/again_popup.png" class="popup-content">
+        <!-- 失敗視窗 -->
+        <div class="introduce">失敗囉!QQ</div>
+        <a href="./game2.html"><button>再來一次</button></a>
+    </div>
+
+
+
+
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function () {
+
+            // 遊戲開始紐點擊後視窗消失
+            $('button').click(function () {
+                $('#popup').css('display', 'none')
+                // 氣球開始往右飄(加入動畫)
+                $('#balloon').css('animation', 'move 7.5s linear 1 normal forwards')
+            })
+
+            // 移動貓手
+            // 遍歷要拖曳的元素
+            $('.hand').each(function () {
+                var hand = $(this);
+                // 按下滑鼠鍵
+                hand.on('mousedown', function (e) {
+                    // 當使用者按下滑鼠時，會觸發元素的拖動行為。但是，由於我們希望通過 JavaScript 控制元素的拖動，
+                    // 而不是讓瀏覽器默認處理，因此我們呼叫了 preventDefault() 方法，以防止默認的拖動行為發生。
+                    // .preventDefault() 如果事件可以被取消，就取消事件（即取消事件的預設行為）。但不會影響事件的傳遞，事件仍會繼續傳遞。
+                    e.preventDefault();
+
+                    // 計算鼠標相對拖曳元素左上角的偏移量
+                    // var offsetX = e.pageX -hand.offset().left;
+                    var offsetY = e.pageY - hand.offset().top;
+
+                    // 鼠標移動
+                    $(document).on('mousemove', function (e) {
+                        // 更新拖曳元素的位置
+                        hand.css({
+                            // left: e.pageX - offsetX,
+                            top: e.pageY - offsetY
+                        });
+                    });
+
+                    // 鬆開滑鼠鍵
+                    $(document).on('mouseup', function () {
+                        // 移除鼠標移動和鬆開滑鼠鍵的監聽
+                        $(document).off('mousemove');
+                        $(document).off('mouseup');
+                    });
+                });
+
+
+
+
+
+                // win
+                // 如果氣球一道指定位置，則通過遊戲
+                function checkPosition() {
+                    // 取得氣球的 Y 軸位移
+                    // split(',') 以逗號分割成陣列
+                    // [4]-從分割後的陣列中取出索引為 4 的元素， matrix(a, b, c, d, tx, ty)
+                    // matrix(a, b, c, d, tx, ty) ，a 和 d 影響元素的縮放和旋轉，b 和 c 影響元素的傾斜變換，[4]代表x軸平移值，[5]代表y軸平移值
+                    // parseFloat 將字符串轉換成浮點數
+                    // trim()，確保取出的字沒有空格
+                    const balloonPosition = parseFloat($('#balloon').css('transform').split(',')[4].trim());
+                    // 檢查氣球位置是否大於或等於 1500
+                    if (balloonPosition >= 1500) {
+                        // 抵達1500位置，則跳出獲勝視窗
+                        $('#win').css('display', 'block');
+                    }
+                }
+                // 每100毫秒检查一次动画位置
+                setInterval(checkPosition, 100);
+            })
+
+
+            // 遊戲結束
+            // 如果氣球和貓手相撞，則結束遊戲
+            var a = $('.ball');
+            var b = $('.hand');
+            var timer = setInterval(moveA, 50); // 設置定時器，在整個遊戲過程中持續地檢查碰撞
+
+            function moveA() {
+                var aPosition = a.offset(); // 獲取氣球的位置
+                // 遍歷每個貓手手，檢查是否碰撞
+                b.each(function (index) {
+                    var b = $(this);
+                    var bPosition = b.offset(); // 獲取貓手手的位置
+                    if (aPosition.left + a.width() >= bPosition.left &&
+                        aPosition.left <= bPosition.left + b.width() &&
+                        aPosition.top + a.height() >= bPosition.top &&
+                        aPosition.top <= bPosition.top + b.height()) {
+                        // 如果氣球和貓手手碰撞，氣球變成碰撞圖片，結束遊戲
+                        $('#balloon1').attr('src', './images/game2/boom.png')
+                        // animation-play-state: 定義動畫是否運行或者暫停 paused / running
+                        $('#balloon').css('animation-play-state', 'paused')
+                        // $('#balloon').css('width', '300px')
+                        $('#balloon1').css('width', '250px')
+                        clearInterval(timer); // 清除定時器
+                        setTimeout(function () {
+                            $('#fail').css('display', 'block');
+                        }, 500)
+                    }
+                });
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

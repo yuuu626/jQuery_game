@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./game3.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="fishs">
+        <img id="fish1" class="fish" src="./images/game3/fish1.png" alt="">
+        <img id="fish2" class="fish" src="./images/game3/fish2.png" alt="">
+        <img id="fish3" class="fish" src="./images/game3/fish3.png" alt="">
+        <img id="fish4" class="fish" src="./images/game3/fish4.png" alt="">
+        <img id="fish5" class="fish" src="./images/game3/fish6.png" alt="">
+        <img id="fish6" class="fish" src="./images/game3/fish5.png" alt="">
+        <img id="fish7" class="fish" src="./images/game3/fish7.png" alt="">
+        <img id="fish8" class="fish" src="./images/game3/fish8.png" alt="">
+    </div>
+    <div id="hands">
+        <img id="hand1" class="hand" src="./images/game3/hand1.png" alt="">
+        <img id="hand2" class="hand" src="./images/game3/hand2.png" alt="">
+        <img id="hand3" class="hand" src="./images/game3/hand3.png" alt="">
+        <img id="hand4" class="hand" src="./images/game3/hand4.png" alt="">
+        <img id="hand5" class="hand" src="./images/game3/hand5.png" alt="">
+        <img id="hand6" class="hand" src="./images/game3/hand6.png" alt="">
+        <img id="hand7" class="hand" src="./images/game3/hand7.png" alt="">
+        <img id="hand8" class="hand" src="./images/game3/hand8.png" alt="">
+    </div>
+    <div>
+        <a href="./game_level.html">
+            <img id="menu" src="./images/menu.png" alt="">
+        </a>
+    </div>
+    <div id="popup" class="popup">
+        <img src="./images/play_choose_popup.png" class="popup-content">
+        <div class="introduce">餵貓吃魚</div>
+        <button>遊戲開始</button>
+        <a href="./game2.html">
+            <div id="pre"></div>
+        </a>
+        <a href="./game4.html">
+            <div id="next"></div>
+        </a>
+    </div>
+    <div id="win" class="popup">
+        <img src="./images/pre_next_popup.png" class="popup-content">
+        <div class="introduce">恭喜通過!</div>
+        <a href="./game2.html">
+            <div id="pre"></div>
+        </a>
+        <a href="./game4.html">
+            <div id="next"></div>
+        </a>
+    </div>
+
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        // 開始按鈕點擊後視窗不見
+        $('button').click(function () {
+            $('#popup').css('display', 'none')
+        })
+
+
+        $('.fish').each(function () {
+            var fish = $(this);
+            // 按下滑鼠鍵
+            fish.on('mousedown', function (e) {
+                e.preventDefault();
+
+                // 計算屬標相對拖曳元素左上角的偏移量
+                var offsetX = e.pageX - fish.offset().left;
+                var offsetY = e.pageY - fish.offset().top;
+
+                // 鼠標移動
+                $(document).on('mousemove', function (e) {
+                    // 更新拖曳元素的位置
+                    fish.css({
+                        left: e.pageX - offsetX,
+                        top: e.pageY - offsetY
+                    });
+                });
+
+                // 鬆開滑鼠鍵
+                $(document).on('mouseup', function () {
+                    // 移除鼠標移動和鬆開滑鼠鍵的監聽
+                    $(document).off('mousemove');
+                    $(document).off('mouseup');
+                });
+            });
+        })
+
+        // 點擊魚，貓手出現
+        $('.fish').each(function (index, fish) {
+            $(fish).on('mousedown', function () {
+                $('#hand1').css('left', '6%')
+                $('#hand2').css({
+                    'bottom': '-10%',
+                    'left': '6%'
+                })
+                $('#hand3').css('bottom', '-30%')
+                $('#hand4').css('bottom', '-30%')
+                $('#hand5').css({
+                    'bottom': '-10%',
+                    'right': '6%'
+                })
+                $('#hand6').css('right', '6%')
+                $('#hand7').css('top', '-20%')
+                $('#hand8').css('top', '-20%')
+            })
+        })
+        // 放開魚，貓手收回
+        $('.fish').each(function (index, fish) {
+            $(fish).on('mouseup', function () {
+                $('#hand1').css('left', '-18%')
+                $('#hand2').css({
+                    'bottom': '-35%',
+                    'left': '-20%'
+                })
+                $('#hand3').css('bottom', '-55%')
+                $('#hand4').css('bottom', '-55%')
+                $('#hand5').css({
+                    'bottom': '-35%',
+                    'right': '-25%'
+                })
+                $('#hand6').css('right', '-18%')
+                $('#hand7').css('top', '-55%')
+                $('#hand8').css('top', '-55%')
+            })
+        })
+
+
+
+
+        // 魚放到正確的貓手上，魚就消失
+        function move1() {
+            var fish = $('#fish1');
+            var fishPos = fish.offset();
+            var handPos = $('#hand1').offset();
+            if (fishPos.top < handPos.top + $('#hand1').width() &&
+                fishPos.top + fish.outerHeight() > handPos.top &&
+                fishPos.left < handPos.left + $('#hand1').height() &&
+                fishPos.left + fish.outerWidth() > handPos.left) {
+                fish.fadeOut(400)
+                setTimeout(function () {
+                    $('#hand1').css('left', '-18%')
+                }, 800)
+                setTimeout(function () {
+                    $('#hand1').css('display', 'none')
+                }, 1200)
+            }
+        }
+        function move2() {
+            var fish = $('#fish2');
+            var fishPos = fish.offset();
+            var handPos = $('#hand2').offset();
+            if (fishPos.top < handPos.top + $('#hand2').width() &&
+                fishPos.top + fish.outerHeight() > handPos.top &&
+                fishPos.left < handPos.left + $('#hand2').height() &&
+                fishPos.left + fish.outerWidth() > handPos.left) {
+                fish.fadeOut(400)
+                setTimeout(function () {
+                    $('#hand2').css({
+                        'bottom': '-35%',
+                        'left': '-20%'
+                    })
+                }, 800)
+                setTimeout(function () {
+                    $('#hand2').css('display', 'none')
+                }, 1200)
+            }
+        }
+        function move3() {
+            var fish = $('#fish3');
+            var fishPos = fish.offset();
+            var handPos = $('#hand3').offset();
+            if (fishPos.top < handPos.top + $('#hand3').height() &&
+                fishPos.top + fish.outerHeight() > handPos.top &&
+                fishPos.left < handPos.left + $('#hand3').width() &&
+                fishPos.left + fish.outerWidth() > handPos.left) {
+                fish.fadeOut(400)
+                setTimeout(function () {
+                    $('#hand3').css('bottom', '-60%')
+                }, 800)
+                setTimeout(function () {
+                    $('#hand3').css('display', 'none')
+                }, 1200)
+            }
+        }
+        function move4() {
+            var fish = $('#fish4');
+            var fishPos = fish.offset();
+            var handPos = $('#hand4').offset();
+            if (fishPos.top < handPos.top + $('#hand4').height() &&
+                fishPos.top + fish.outerHeight() > handPos.top &&
+                fishPos.left < handPos.left + $('#hand4').width() &&
+                fishPos.left + fish.outerWidth() > handPos.left) {
+                fish.fadeOut(400)
+                setTimeout(function () {
+                    $('#hand4').css('bottom', '-55%')
+                }, 800)
+                setTimeout(function () {
+                    $('#hand4').css('display', 'none')
+                }, 1200)
+            }
+        }
+        function move5() {
+            var fish = $('#fish5');
+            var fishPos = fish.offset();
+            var handPos = $('#hand5').offset();
+            if (fishPos.top < handPos.top + $('#hand5').width() &&
+                fishPos.top + fish.outerHeight() > handPos.top &&
+                fishPos.left < handPos.left + $('#hand5').height() &&
+                fishPos.left + fish.outerWidth() > handPos.left) {
+                fish.fadeOut(400)
+                setTimeout(function () {
+                    $('#hand5').css({
+                        'bottom': '-35%',
+                        'right': '-20%'
+                    })
+                }, 800)
+                setTimeout(function () {
+                    $('#hand5').css('display', 'none')
+                }, 1200)
+            }
+        }
+        function move6() {
+            var fish = $('#fish6');
+            var fishPos = fish.offset();
+            var handPos = $('#hand6').offset();
+            if (fishPos.top < handPos.top + $('#hand6').width() &&
+                fishPos.top + fish.outerHeight() > handPos.top &&
+                fishPos.left < handPos.left + $('#hand6').height() &&
+                fishPos.left + fish.outerWidth() > handPos.left) {
+                fish.fadeOut(400)
+                setTimeout(function () {
+                    $('#hand6').css('right', '-18%')
+                }, 800)
+                setTimeout(function () {
+                    $('#hand6').css('display', 'none')
+                }, 1200)
+            }
+        }
+        function move7() {
+            var fish = $('#fish7');
+            var fishPos = fish.offset();
+            var handPos = $('#hand7').offset();
+            if (fishPos.top < handPos.top + $('#hand7').height() &&
+                fishPos.top + fish.outerHeight() > handPos.top &&
+                fishPos.left < handPos.left + $('#hand7').width() &&
+                fishPos.left + fish.outerWidth() > handPos.left) {
+                fish.fadeOut(400)
+                setTimeout(function () {
+                    $('#hand7').css('top', '-55%')
+                }, 800)
+                setTimeout(function () {
+                    $('#hand7').css('display', 'none')
+                }, 1200)
+            }
+        }
+        function move8() {
+            var fish = $('#fish8');
+            var fishPos = fish.offset();
+            var handPos = $('#hand8').offset();
+            if (fishPos.top < handPos.top + $('#hand8').height() &&
+                fishPos.top + fish.outerHeight() > handPos.top &&
+                fishPos.left < handPos.left + $('#hand8').width() &&
+                fishPos.left + fish.outerWidth() > handPos.left) {
+                fish.fadeOut(400)
+                setTimeout(function () {
+                    $('#hand8').css('top', '-55%')
+                }, 800)
+                setTimeout(function () {
+                    $('#hand8').css('display', 'none')
+                }, 1200)
+            }
+        }
+        // 每500毫秒偵測一次魚的位置是否在貓手上
+        setInterval(function () {
+            cheakCount()
+            move1();
+            move2();
+            move3();
+            move4();
+            move5();
+            move6();
+            move7();
+            move8();
+        }, 800);
+
+
+
+
+
+        // 所有魚都不見代表成功通關，跳出通關視窗
+        function cheakCount() {
+            if ($('#fish1').css('display') === 'none' &&
+                $('#fish2').css('display') === 'none' &&
+                $('#fish3').css('display') === 'none' &&
+                $('#fish4').css('display') === 'none' &&
+                $('#fish5').css('display') === 'none' &&
+                $('#fish6').css('display') === 'none' &&
+                $('#fish7').css('display') === 'none' &&
+                $('#fish8').css('display') === 'none'
+            ) {
+                $('#win').css('display', 'block');
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

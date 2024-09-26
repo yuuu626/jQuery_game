@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./game4.css">
+</head>
+
+<body>
+    <br>
+    <div id="score">分數: <span id="text-score">0</span></div>
+    <div id="time">時間: <span id="text-time">0</span></div>
+    <div id="game"></div>
+    <a href="./game_level.html">
+        <img id="menu" src="./images/menu.png" alt="">
+    </a>
+    <div id="popup" class="popup">
+        <img src="./images/play_choose_popup.png" class="popup-content">
+        <div class="introduce">抓 5 隻蟲子!</div>
+        <button id="btn-start">遊戲開始</button>
+        <a href="./game3.html">
+            <div id="pre"></div>
+        </a>
+        <a href="./game5.html">
+            <div id="next"></div>
+        </a>
+
+    </div>
+    <div id="win" class="popup">
+        <img src="./images/pre_next_popup.png" class="popup-content">
+        <div class="introduce">恭喜通過!</div>
+        <a href="./game3.html">
+            <div id="pre"></div>
+        </a>
+        <a href="./game5.html">
+            <div id="next"></div>
+        </a>
+    </div>
+    <div id="fail" class="popup">
+        <img src="./images/again_popup.png" class="popup-content">
+        <!-- 關閉按鈕 -->
+        <div class="introduce">失敗囉!QQ</div>
+        <a href="./game4.html"><button>再來一次</button></a>
+    </div>
+
+
+</body>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    let score = 0
+    let time = 0
+    let timer = 0
+
+    $('#btn-start').click(function () {
+        // 點擊後開始遊戲視窗不見
+        $('#popup').css('display', 'none')
+        // 重設各個參數(分數 及 時間歸零)
+        score = 0
+        $('#text-score').text(score)
+        time = 15
+        $('#text-time').text(time)
+        const $this = this
+
+
+
+
+        timer = setInterval(function () {
+            // 倒數
+            time--
+            $('#text-time').text(time)
+            // 隨機數字
+            const random = Math.ceil(Math.random() * 15) // ceil無條件進位 random(0-10不含10)
+            // 隨機數字 > 5，且魚的數量 < 5 才出現
+            if (random > 5 && $('.fly').length < 5) {
+                // 蒼蠅出現的隨機位置
+                const top = Math.round(Math.random() * 85) + '%'
+                const left = Math.round(Math.random() * 90) + '%'
+                // 產生蒼蠅
+                const fly = $(`<img src="./images/game4/fly.gif"  class="fly" style="top:${top};left:${left}">`)// 變成 JQ 的 HTML元素
+                $('#game').append(fly)
+                moveFly(fly)
+            }
+            if (time === 0) {
+                // 停止計時器
+                clearInterval(timer)
+
+                if (score < 5) { $('#fail').css('display', 'block') }
+                // 重新啟用開始按鈕
+                $($this).attr('disabled', false)
+                // 清空遊戲區域
+                $('#game').empty()
+            } else if (score >= 5) {
+                $('#win').css('display', 'block')
+                $($this).attr('disabled', false)
+                $('#game').empty()
+            }
+        }, 1000) //每一秒(1000ms)跑一次function
+    })
+
+    $('#game').on('click', '.fly', function () {
+        $(this).stop()
+        $(this).attr('src', './images/game4/die.gif')
+        // 移除掉魚，變成血
+        $(this).removeClass('fly').addClass('die')
+        score++
+        $('#text-score').text(score)
+    })
+
+    function moveFly(fly) {
+        const top = Math.round(Math.random() * 85) + '%'
+        const left = Math.round(Math.random() * 90) + '%'
+        // 蒼蠅移動到新位置，持續2s，動畫完再給新位置讓魚移動
+        fly.animate({ top, left }, 1500, function () {
+            moveFly(fly) //讓魚不斷移動
+        })
+    }
+
+
+
+
+
+</script>
+
+</html>

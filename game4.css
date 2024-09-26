@@ -1,0 +1,152 @@
+body {
+    /* background: rgb(229, 218, 168); */
+    overflow: hidden;
+    background: url("./images/game4/background.jpg");
+    font-family: "微軟正黑體";
+    font-weight: bold;
+}
+
+#score {
+    position: absolute;
+    top: 4%;
+    left: 18%;
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+}
+
+#time {
+    position: absolute;
+    top: 4%;
+    left: 5%;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#game {
+    position: relative;
+    margin: auto;
+    margin-top: 5%;
+    width: 90vw;
+    height: 75vh;
+    border: 5px solid #000;
+    background: rgb(255, 245, 231);
+    cursor: url(./images/game4/hand.gif) 50 50, auto;
+}
+
+
+
+#game>img {
+    position: absolute;
+    /* 不能反白 及 拖拉 */
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.die {
+    /* 忽略點擊事件 */
+    pointer-events: none;
+}
+
+
+/* 視窗 */
+#popup {
+    /* display: none; */
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9)
+}
+
+.popup-content {
+    /* background-color: #fefefe; */
+    /* border: 1px solid #888; */
+    border-radius: 25px;
+    position: relative;
+    top: 45%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+}
+
+
+.introduce {
+    font-size: 50px;
+    font-weight: bolder;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translateX(-50%);
+    z-index: 10;
+    color: #686867;
+}
+
+button {
+    width: 265px;
+    height: 118px;
+    border-radius: 50px;
+    position: absolute;
+    left: 50%;
+    bottom: 30%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    /* 隱藏起來 */
+    opacity: 0;
+}
+
+#pre {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    position: absolute;
+    left: 36.5%;
+    top: 58.5%;
+}
+
+#next {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    position: absolute;
+    left: 58.5%;
+    top: 58.5%;
+}
+
+#win {
+    display: none;
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9)
+}
+
+
+#fail {
+    display: none;
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+
+}
+
+
+#menu {
+    width: 100px;
+    cursor: pointer;
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    z-index: 5;
+}
